@@ -9,7 +9,9 @@
     <disabled-settings>
       <setting-ref ref="gitify_package_install" />
     </disabled-settings>
-    <parameters />
+    <parameters>
+      <param name="env.NGINX_PORT" value="0" />
+    </parameters>
     <build-runners>
       <runner id="make_remake" name="make remake" type="simpleRunner">
         <parameters>
