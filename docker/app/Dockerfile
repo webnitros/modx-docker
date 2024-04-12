@@ -4,6 +4,8 @@ USER root
 
 COPY ./docker/app/php.ini-production /usr/local/etc/php/php.ini
 
+RUN apk add --no-cache mariadb-connector-c
+
 ########################
 ####### development
 ########################
