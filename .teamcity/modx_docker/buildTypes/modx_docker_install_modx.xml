@@ -15,7 +15,9 @@
     <build-runners>
       <runner id="make_remake" name="make remake" type="simpleRunner">
         <parameters>
-          <param name="script.content"><![CDATA[cp .env.example .env
+          <param name="script.content"><![CDATA[export NGINX_PORT=0
+
+cp .env.example .env
 
 make remake]]></param>
           <param name="teamcity.step.mode" value="default" />
