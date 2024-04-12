@@ -106,3 +106,6 @@ package-deploy:
 	@make package-target-clear
 	@make package-build
 	@make package-build-encryption
+
+checking-add-ons:
+	docker compose exec app bash -c "php ./docker/app/scripts/checking-add-ons.php"
