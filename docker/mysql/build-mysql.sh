@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE="modx-mysql:latest"
+IMAGE="webnitros/modx-mysql:latest"
 CONTAINER="modx-mysql"
 
 # Запуск контейнера
