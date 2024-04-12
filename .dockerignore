@@ -1,0 +1,11 @@
+/src/node_modules
+/.git
+/.idea
+/.vscode
+/_backup
+/core/cache
+composer.lock
+**.editorconfig
+**.gitattributes
+**.gitignore
+/docker-compose.yml

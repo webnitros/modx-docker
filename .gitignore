@@ -1,0 +1,7 @@
+.idea
+public/config.xml
+config.xml
+core/vendor
+/core/cache/
+.env
+/vendor/
