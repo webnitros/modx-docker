@@ -10,7 +10,7 @@
   <param name="teamcity:branchSpec"><![CDATA[+:refs/heads/(master)
 +:refs/(pull/*)/head
 refs/heads/(dev/*)]]></param>
-  <param name="tokenId" value="tc_token_id:CID_d6519110732af91044245b8a90968579:-1:57bde02a-bbc0-47a6-a28c-65b33eb79f71" />
+  <param name="tokenId" value="tc_token_id:CID_d6519110732af91044245b8a90968579:-1:30267333-c2f8-4cae-9422-2392e09d58b5" />
   <param name="url" value="https://github.com/webnitros/modx-docker" />
   <param name="useAlternates" value="AUTO" />
   <param name="username" value="oauth2" />
