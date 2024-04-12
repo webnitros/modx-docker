@@ -109,3 +109,15 @@ package-deploy:
 
 checking-add-ons:
 	docker compose exec app bash -c "php ./docker/app/scripts/checking-add-ons.php"
+
+mysqldump:
+	docker compose exec mysql bash -c "mysqldump -h 127.0.0.1 -u root -p${MYSQL_ROOT_PASSWORD} --force ${MYSQL_DATABASE} > /docker-entrypoint-initdb.d/dump.sql"
+
+
+build-deploy:
+	@$(MAKE) build APP_BUILD_TARGET=deploy
+
+build-mysql-run:
+	@make mysqldump
+	sh ./docker/mysql/build-mysql.sh
+
