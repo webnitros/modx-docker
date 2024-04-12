@@ -10,9 +10,9 @@ services:
     build:
       dockerfile: ./docker/app/Dockerfile
       target: ${APP_BUILD_TARGET:-deploy}
-    #depends_on:
-    #  mysql:
-    #    condition: service_healthy
+    depends_on:
+      mysql:
+        condition: service_healthy
     working_dir: /var/www/html
     volumes:
       - "./docker/app/php.ini-development:/usr/local/etc/php/php.ini"
