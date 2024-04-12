@@ -1,12 +1,11 @@
 #!/bin/bash
 
-IMAGE="modx-mysql-template:latest"
-CONTAINER="modx-mysqlt"
+IMAGE="modx-mysql:latest"
+CONTAINER="modx-mysql"
 
 # Запуск контейнера
-#docker run -d --name modx-mysql --env-file .env -v ./docker/mysql/dumps:/docker-entrypoint-initdb.d mysql/mysql-server:8.0
 docker image rm "$IMAGE" -f
-docker rm modx-mysql -f
+docker rm "$CONTAINER" -f
 docker run -d --name "$CONTAINER" --env-file .env -v ./docker/mysql/dumps:/docker-entrypoint-initdb.d mysql/mysql-server:8.0
 
 echo "Ожидание, пока контейнер полностью поднимется..."
