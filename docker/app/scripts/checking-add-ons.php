@@ -5,7 +5,7 @@ require dirname(__FILE__, 4) . '/public/index.php';
 
 
 /* @var modProcessorResponse $response */
-$response = $modx->runProcessor('workspace/packages/scanLocal');
+$response = $modx->runProcessor('workspace/packages/scanlocal');
 if ($response->isError()) {
     echo 'Error scanning local packages: ' . $response->getMessage() . "\n";
     die;
