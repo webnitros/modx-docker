@@ -30,14 +30,6 @@ make cache-clear]]></param>
           <param name="use.custom.script" value="true" />
         </parameters>
       </runner>
-      <runner id="APP_PUSH_1_1" name="MYSQL:PUSH" type="DockerCommand">
-        <parameters>
-          <param name="docker.command.type" value="push" />
-          <param name="docker.image.namesAndTags" value="webnitros/modx-mysql:latest" />
-          <param name="dockerfile.source" value="PATH" />
-          <param name="teamcity.step.mode" value="default" />
-        </parameters>
-      </runner>
       <runner id="make_down" name="make down" type="simpleRunner">
         <parameters>
           <param name="script.content" value="make down" />
