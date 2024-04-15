@@ -121,3 +121,7 @@ build-mysql-run:
 	@make mysqldump
 	sh ./docker/mysql/build-mysql.sh
 
+
+test:
+	docker compose up -d -f docker-compose.test.yml
+
