@@ -15,6 +15,6 @@
     </extension>
   </project-extensions>
   <cleanup />
-  <buildTypesOrder order="modx_docker_Test,modx_docker_install_modx,modx_docker_Push" />
+  <buildTypesOrder order="modx_docker_install_modx,modx_docker_Test,modx_docker_Push" />
 </project>
 
