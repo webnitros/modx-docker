@@ -6,21 +6,10 @@
     <options>
       <option name="cleanBuild" value="true" />
     </options>
-    <disabled-settings>
-      <setting-ref ref="gitify_package_install" />
-    </disabled-settings>
     <parameters>
       <param name="env.NGINX_PORT" value="0" />
     </parameters>
     <build-runners>
-      <runner id="gitify_package_install" name="gitify-package-install" type="simpleRunner">
-        <parameters>
-          <param name="script.content"><![CDATA[make gitify-package-install
-make cache-clear]]></param>
-          <param name="teamcity.step.mode" value="default" />
-          <param name="use.custom.script" value="true" />
-        </parameters>
-      </runner>
       <runner id="APP_BUILD" name="APP:BUILD" type="DockerCommand">
         <parameters>
           <param name="docker.command.type" value="build" />
