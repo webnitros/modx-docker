@@ -123,5 +123,5 @@ build-mysql-run:
 
 
 test:
-	docker compose up -d -f docker-compose.test.yml
+	docker compose -f docker-compose.test.yml up
 
