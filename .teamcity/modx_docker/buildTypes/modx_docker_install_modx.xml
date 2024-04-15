@@ -13,15 +13,6 @@
       <param name="env.NGINX_PORT" value="0" />
     </parameters>
     <build-runners>
-      <runner id="make_remake" name="make remake" type="simpleRunner">
-        <parameters>
-          <param name="script.content"><![CDATA[cp .env.example .env
-
-make remake]]></param>
-          <param name="teamcity.step.mode" value="default" />
-          <param name="use.custom.script" value="true" />
-        </parameters>
-      </runner>
       <runner id="gitify_package_install" name="gitify-package-install" type="simpleRunner">
         <parameters>
           <param name="script.content"><![CDATA[make gitify-package-install
