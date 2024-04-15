@@ -26,7 +26,7 @@ make remake]]></param>
           <param name="use.custom.script" value="true" />
         </parameters>
       </runner>
-      <runner id="simpleRunner" name="" type="simpleRunner">
+      <runner id="simpleRunner" name="Cypress" type="simpleRunner">
         <parameters>
           <param name="script.content"><![CDATA[#!/bin/bash
 
