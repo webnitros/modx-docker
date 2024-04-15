@@ -1,0 +1,31 @@
+x-setting: &default-setting
+  env_file:
+    - ./.env
+  networks:
+    - backend
+
+services:
+  app:
+    image: 'webnitros/modx-app:latest'
+    <<: *default-setting
+
+  nginx:
+    image: 'webnitros/modx-nginx:latest'
+    depends_on:
+      - app
+      - mysql
+    ports:
+      - ${NGINX_PORT:-9001}:80
+    <<: *default-setting
+
+  mysql:
+    image: 'webnitros/modx-mysql:latest'
+    <<: *default-setting
+
+  pma:
+    image: linuxserver/phpmyadmin:latest
+    <<: *default-setting
+
+networks:
+  backend:
+    external: false
