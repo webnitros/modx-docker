@@ -5,3 +5,5 @@ core/vendor
 /core/cache/
 .env
 /vendor/
+/node_modules/
+/bun.lockb
