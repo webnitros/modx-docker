@@ -10,17 +10,6 @@
       <param name="env.NGINX_PORT" value="0" />
     </parameters>
     <build-runners>
-      <runner id="NGINX_BUILD" name="NGINX:BUILD" type="DockerCommand">
-        <parameters>
-          <param name="docker.command.type" value="build" />
-          <param name="docker.image.namesAndTags" value="webnitros/modx-nginx:latest" />
-          <param name="docker.push.remove.image" value="true" />
-          <param name="dockerfile.contextDir" value="." />
-          <param name="dockerfile.path" value="./docker/nginx/Dockerfile" />
-          <param name="dockerfile.source" value="PATH" />
-          <param name="teamcity.step.mode" value="default" />
-        </parameters>
-      </runner>
       <runner id="MYSQL_BUILD" name="MYSQL:BUILD" type="simpleRunner">
         <parameters>
           <param name="script.content" value="make build-mysql-run" />
