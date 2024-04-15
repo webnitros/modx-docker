@@ -79,6 +79,13 @@ make cache-clear]]></param>
         </parameters>
       </extension>
     </build-extensions>
+    <dependencies>
+      <depend-on sourceBuildTypeId="modx_docker_install_modx">
+        <options>
+          <option name="run-build-if-dependency-failed" value="RUN_ADD_PROBLEM" />
+        </options>
+      </depend-on>
+    </dependencies>
     <cleanup />
   </settings>
 </build-type>
