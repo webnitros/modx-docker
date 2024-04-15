@@ -26,6 +26,45 @@ make remake]]></param>
           <param name="use.custom.script" value="true" />
         </parameters>
       </runner>
+      <runner id="simpleRunner" name="" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[#!/bin/bash
+
+directory_name=$(basename "%system.teamcity.build.checkoutDir%")
+container_name="$directory_name-nginx-1"
+
+# Получаем ID контейнера
+container_id=$(docker ps -qf "name=$container_name")
+
+# Проверяем, что контейнер существует
+if [ -z "$container_id" ]; then
+    echo "Контейнер с именем '$container_name' не найден."
+    exit 1
+fi
+
+echo "Контейнер '$container_name' найден."
+ports=$(docker inspect --format='{{range $port := .NetworkSettings.Ports}}{{(index $port 0).HostPort}}{{end}}' "$container_id")
+
+# Проверяем, что порт не пустой
+if [ -z "$ports" ]; then
+    echo "Порт для контейнера '$container_name' не найден."
+    exit 1
+fi
+
+echo "Контейнер '$container_name' работает на порту $ports."
+
+
+
+docker run \
+      -e CYPRESS_BASE_URL="http://tc.local:$ports/" \
+      -v $(pwd)/cypress.config.js:/e2e/cypress.config.js \
+      -v $(pwd)/cypress:/e2e/cypress \
+      webnitros/cypress-runners-mac:latest \
+      --config-file cypress.config.js]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
     </build-runners>
     <vcs-settings>
       <vcs-entry-ref root-id="Modxcheckingaddons_HttpsGithubComWebnitrosModxDockerRefsHeadsMaster" />
