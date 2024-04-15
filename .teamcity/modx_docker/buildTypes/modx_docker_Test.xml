@@ -19,13 +19,6 @@ make remake]]></param>
           <param name="use.custom.script" value="true" />
         </parameters>
       </runner>
-      <runner id="make_down" name="make down" type="simpleRunner">
-        <parameters>
-          <param name="script.content" value="make down" />
-          <param name="teamcity.step.mode" value="default" />
-          <param name="use.custom.script" value="true" />
-        </parameters>
-      </runner>
       <runner id="simpleRunner" name="Cypress" type="simpleRunner">
         <parameters>
           <param name="script.content"><![CDATA[#!/bin/bash
@@ -61,6 +54,13 @@ docker run \
       -v $(pwd)/cypress:/e2e/cypress \
       webnitros/cypress-runners-mac:latest \
       --config-file cypress.config.js]]></param>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="make_down" name="make down" type="simpleRunner">
+        <parameters>
+          <param name="script.content" value="make down" />
           <param name="teamcity.step.mode" value="default" />
           <param name="use.custom.script" value="true" />
         </parameters>
