@@ -50,14 +50,6 @@ make cache-clear]]></param>
           <param name="use.custom.script" value="true" />
         </parameters>
       </runner>
-      <runner id="APP_PUSH_1" name="NGINX:PUSH" type="DockerCommand">
-        <parameters>
-          <param name="docker.command.type" value="push" />
-          <param name="docker.image.namesAndTags" value="webnitros/modx-nginx:latest" />
-          <param name="dockerfile.source" value="PATH" />
-          <param name="teamcity.step.mode" value="default" />
-        </parameters>
-      </runner>
       <runner id="APP_PUSH_1_1" name="MYSQL:PUSH" type="DockerCommand">
         <parameters>
           <param name="docker.command.type" value="push" />
