@@ -15,7 +15,7 @@ services:
       - app
       - mysql
     ports:
-      - ${NGINX_PORT:-9001}:80
+      - ${NGINX_PORT:-59000}:80
     <<: *default-setting
 
   mysql:
