@@ -140,9 +140,9 @@ if ($v['version'] >= 3) {
     #############
     ### config.core.php
     #############
-    file_put_contents('/var/www/html/public/config.core.php', "<?php include_once dirname(__FILE__, 2) . '/bootstrap.php';");
-    file_put_contents('/var/www/html/public/manager/config.core.php', "<?php include_once dirname(__FILE__, 3) . '/bootstrap.php';");
-    file_put_contents('/var/www/html/public/connectors/config.core.php', "<?php include_once dirname(__FILE__, 3) . '/bootstrap.php';");
+    file_put_contents('/var/www/html/config.core.php', "<?php include_once dirname(__FILE__, 2) . '/bootstrap.php';");
+    file_put_contents('/var/www/html/manager/config.core.php', "<?php include_once dirname(__FILE__, 3) . '/bootstrap.php';");
+    file_put_contents('/var/www/html/connectors/config.core.php', "<?php include_once dirname(__FILE__, 3) . '/bootstrap.php';");
 
     ####################################
     ####################################

@@ -2,7 +2,7 @@
 
 define('MODX_API_MODE', true);
 
-require dirname(__FILE__, 4).'/public/index.php';
+require dirname(__FILE__, 4).'/index.php';
 
 
 /* @var modProcessorResponse $response */

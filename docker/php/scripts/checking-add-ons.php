@@ -1,13 +1,14 @@
 <?php
+
 define('MODX_API_MODE', true);
 
-require dirname(__FILE__, 4) . '/public/index.php';
+require dirname(__FILE__, 4).'/index.php';
 
 
 /* @var modProcessorResponse $response */
 $response = $modx->runProcessor('workspace/packages/scanlocal');
 if ($response->isError()) {
-    echo 'Error scanning local packages: ' . $response->getMessage() . "\n";
+    echo 'Error scanning local packages: '.$response->getMessage()."\n";
     die;
 }
 
@@ -15,14 +16,13 @@ if ($response->isError()) {
 $q = $modx->newQuery('transport.modTransportPackage');
 $q->where(array(
     'provider' => 0,
-    'release' => 'noecrypt'
+    'release' => 'noecrypt',
 ));
 $q->sortby('created', 'DESC');
 
 
 /* @var modTransportPackage $package */
 if ($package = $modx->getObject('transport.modTransportPackage', $q)) {
-
     $signature = $package->get('signature');
 
     // Удаление пакета если был установлен

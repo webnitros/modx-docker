@@ -1,7 +1,7 @@
 ### Start project
 
 ```console
-cp .env.example .env
+cp .env.dist .env
 ```
 
 Change version modx [.env](.env) default `MODX_VERSION=2.8.3-pl`

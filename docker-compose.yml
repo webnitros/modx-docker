@@ -13,13 +13,14 @@ services:
       target: ${APP_BUILD_TARGET:-deploy}
       args:
         PHP_VERSION: ${PHP_VERSION:-7.4}
-    depends_on:
-      mysql:
-        condition: service_healthy
+    #depends_on:
+    #  mysql:
+    #    condition: service_healthy
     working_dir: /var/www/html
     volumes:
       - "./docker/php/php.ini-development:/usr/local/etc/php/php.ini"
-      - ".:/var/www/html/"
+      - "./public:/var/www/html/"
+      - "./docker/php/scripts:/var/www/scripts/"
     user: '82:82'
   nginx:
     <<: *default-setting
@@ -30,7 +31,7 @@ services:
       - php
       - mysql
     volumes:
-      - ".:/var/www/html"
+      - "./public:/var/www/html"
       - ./docker/nginx/templates:/etc/nginx/templates
     ports:
       - ${NGINX_PORT:-9001}:80

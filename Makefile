@@ -1,39 +1,5 @@
 include .env
-
-gitify-installer:
-	docker compose exec app bash -c 'php ./docker/app/scripts/installer.php'
-
-gitify-config:
-	docker compose exec app bash -c 'php ./docker/app/scripts/config.php'
-
-composer-autoload:
-	docker compose exec app bash -c 'rm -rf core/vendor/*'
-	docker compose exec app bash -c 'php ./docker/app/scripts/composer-autoload.php --version=${MODX_VERSION}'
-
-uninstall:
-	docker compose exec app bash -c 'rm -rf core'
-	docker compose exec app bash -c 'rm -rf public/*'
-	docker compose exec app bash -c 'rm -rf vendor'
-	docker compose exec app bash -c 'rm -f composer.json'
-	docker compose exec app bash -c 'rm -f composer.lock'
-	docker compose exec app bash -c 'mkdir -p /var/www/html/public'
-	docker compose exec app bash -c 'touch /var/www/html/public/.gitkeep'
-
-gitify-download:
-	docker compose exec app bash -c 'gitify modx:download'
-
-# modx < 3.0
-gitify-package-install:
-	docker compose exec app bash -c 'gitify package:install --all'
-
-gitify-install:
-	@make uninstall
-	@make gitify-installer
-	docker compose exec app bash -c 'cd /var/www/html/public && gitify modx:install --config=/var/www/html/config.xml ${MODX_VERSION}'
-	docker compose exec app bash -c 'rm -f /var/www/html/config.xml'
-	docker compose exec app bash -c 'rm -f /var/www/html/public/config.xml'
-	@make composer-autoload
-	@make gitify-config
+NGINX_PORT ?= 9001
 
 help:
 	@echo ""
@@ -42,12 +8,49 @@ help:
 	@echo "Commands:"
 	@echo "  install        Сборка контенера и установка всех зависимостей s"
 
+gitify-installer:
+	docker compose exec php bash -c 'php /var/www/scripts/installer.php'
+
+gitify-config:
+	docker compose exec php bash -c 'php /var/www/scripts/config.php'
+
+composer-autoload:
+	docker compose exec php bash -c 'rm -rf core/vendor/*'
+	docker compose exec php bash -c 'php /var/www/scripts/composer-autoload.php --version=${MODX_VERSION}'
+
+uninstall:
+	#docker compose exec php bash -c 'rm -rf core'
+	docker compose exec php bash -c 'rm -rf *'
+	#docker compose exec php bash -c 'rm -rf vendor'
+	#docker compose exec php bash -c 'rm -f composer.json'
+	#docker compose exec php bash -c 'rm -f composer.lock'
+	#docker compose exec php bash -c 'mkdir -p /var/www/html/public'
+	#docker compose exec php bash -c 'touch /var/www/html/public/.gitkeep'
+
+gitify-download:
+	docker compose exec php bash -c 'gitify modx:download'
+
+# modx < 3.0
+gitify-package-install:
+	docker compose exec app bash -c 'gitify package:install --all'
+
+gitify-install:
+	@make uninstall
+	cp docker/modx/config.dist.xml public/config.dist.xml
+	@make gitify-installer
+	docker compose exec php bash -c 'cd /var/www/html && gitify modx:install --config=/var/www/html/config.xml ${MODX_VERSION}'
+	@make composer-autoload
+	@make gitify-config
+
+
 install:
-	@make build
-	@make up
+	#@make build
+	#@make up
 	@make gitify-install
 	@make composer
 	@make cache-clear
+	#rm -f public/config.xml
+	#rm -f public/config.dist.xml
 	@make user-info
 
 user-info:
@@ -83,24 +86,24 @@ logs:
 mysql:
 	docker compose exec mysql bash
 app:
-	docker compose exec app bash
+	docker compose exec php bash
 rollback:
-	docker compose exec app composer rollback
+	docker compose exec php composer rollback
 composer:
-	docker compose exec app composer install
+	docker compose exec php composer install
 cache-clear:
-	docker compose exec app bash -c 'rm -rf core/cache'
+	docker compose exec php bash -c 'rm -rf core/cache'
 
 
 # Extras
 package-build:
-	docker compose exec app bash -c "export PACKAGE_ENCRYPTION=False && php Extras/mspre/_build/build.php"
+	docker compose exec php bash -c "export PACKAGE_ENCRYPTION=False && php Extras/mspre/_build/build.php"
 
 package-build-encryption:
-	docker compose exec app bash -c "php Extras/mspre/_build/build.php"
+	docker compose exec php bash -c "php Extras/mspre/_build/build.php"
 
 package-target-clear:
-	docker compose exec app bash -c 'rm -rf target'
+	docker compose exec php bash -c 'rm -rf target'
 
 package-deploy:
 	@make package-target-clear
@@ -108,7 +111,7 @@ package-deploy:
 	@make package-build-encryption
 
 checking-add-ons:
-	docker compose exec app bash -c "php ./docker/app/scripts/checking-add-ons.php"
+	docker compose exec php bash -c "php /var/www/scripts/checking-add-ons.php"
 
 mysqldump:
 	docker compose exec mysql bash -c "mysqldump -h 127.0.0.1 -u root -p${MYSQL_ROOT_PASSWORD} --force ${MYSQL_DATABASE} > /docker-entrypoint-initdb.d/dump.sql"
