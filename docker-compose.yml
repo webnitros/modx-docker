@@ -11,6 +11,8 @@ services:
       context: .
       dockerfile: ./docker/php/Dockerfile
       target: ${APP_BUILD_TARGET:-deploy}
+      args:
+        PHP_VERSION: ${PHP_VERSION:-7.4}
     depends_on:
       mysql:
         condition: service_healthy

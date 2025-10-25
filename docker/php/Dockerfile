@@ -1,12 +1,12 @@
 ARG PHP_VERSION=7.4
 FROM php:${PHP_VERSION}-fpm-alpine AS base
 
-# Установка Supervisor
+ARG PHP_VERSION
+
+# Install Supervisor
 RUN apk add --no-cache supervisor
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-#COPY --chown=www-data:www-data ./docker/php/index.php /var/www/html
 
 RUN apk update && apk upgrade
 RUN apk add build-base autoconf libzip-dev libpng-dev libjpeg-turbo-dev libwebp-dev bash mariadb-client mc nano icu-dev
@@ -18,11 +18,8 @@ RUN apk add --no-cache supervisor
 COPY ./docker/php/supervisor/supervisord.conf /etc/supervisord.conf
 RUN mkdir -p /var/log/supervisor
 
-# копируем задание которое будет запускать crond.sh для переноса новых заданий из файла в crontab core/scheduler/crontabs/$USER
 COPY ./docker/php/crontabs/cron /etc/cron.d/cron
 RUN chmod 0644 /etc/cron.d/cron
-
-# Копируем файл который будет отлеживать изменения в crontab
 COPY ./docker/php/crontabs/crond.sh /root/crond.sh
 RUN chmod +x /root/crond.sh
 
@@ -34,18 +31,15 @@ RUN docker-php-ext-install exif
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install bz2
 RUN docker-php-ext-install pdo_mysql
-
-#Установка и включение intl
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install intl
 RUN docker-php-ext-enable intl
 
-# Установка и включение расширения GD
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd
 
-# Копируем конфигурационный файл Supervisor
+# supervisor
 COPY ./docker/php/supervisor/supervisord.conf /etc/supervisord.conf
 RUN mkdir -p /var/log/supervisor
 
