@@ -5,17 +5,18 @@ x-setting: &default-setting
     - ./.env
 
 services:
-  app:
+  php:
     <<: *default-setting
     build:
-      dockerfile: ./docker/app/Dockerfile
+      context: .
+      dockerfile: ./docker/php/Dockerfile
       target: ${APP_BUILD_TARGET:-deploy}
     depends_on:
       mysql:
         condition: service_healthy
     working_dir: /var/www/html
     volumes:
-      - "./docker/app/php.ini-development:/usr/local/etc/php/php.ini"
+      - "./docker/php/php.ini-development:/usr/local/etc/php/php.ini"
       - ".:/var/www/html/"
     user: '82:82'
   nginx:
@@ -24,7 +25,7 @@ services:
       dockerfile: ./docker/nginx/Dockerfile
       target: ${APP_BUILD_TARGET:-deploy}
     depends_on:
-      - app
+      - php
       - mysql
     volumes:
       - ".:/var/www/html"
